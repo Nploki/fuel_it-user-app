@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fuel_it/constants.dart';
 import 'package:fuel_it/screens/onboarding_screen.dart';
+import 'package:fuel_it/screens/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => OnboardingScreen(),
+            builder: (context) => welcome_screen(),
           ));
     });
   }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "992121400844",
+    "project_id": "fuel-it-e0ce6",
+    "storage_bucket": "fuel-it-e0ce6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992121400844:android:442a2d1462fd289f2b0829",
+        "android_client_info": {
+          "package_name": "com.example.fuel_it"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnJoh304Bw4XptTM2bJwSiwkIsRJqzJRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992121400844:android:329f10eae232586d2b0829",
+        "android_client_info": {
+          "package_name": "com.fuel_it"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnJoh304Bw4XptTM2bJwSiwkIsRJqzJRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

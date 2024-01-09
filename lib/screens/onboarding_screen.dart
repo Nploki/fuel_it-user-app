@@ -20,7 +20,7 @@ final List<Widget> _pages = [
         child: Image.network(
             "https://img.freepik.com/free-vector/order-confirmed-concept-illustration_114360-1545.jpg"),
       ),
-      Text("Order Fuel at Door Step ...", style: onboardtextstyle)
+      const Text("Order your Required Fuel ...", style: onboardheadertextstyle),
     ],
   ),
   Column(
@@ -29,7 +29,8 @@ final List<Widget> _pages = [
         child: Image.network(
             "https://images.template.net/84891/free-location-illustration-wtiua.jpg"),
       ),
-      Text("Set Your Delivery Location ...", style: onboardtextstyle)
+      const Text("Set Your Delivery Location ...",
+          style: onboardheadertextstyle)
     ],
   ),
   Column(
@@ -38,7 +39,8 @@ final List<Widget> _pages = [
         child: Image.network(
             "https://img.freepik.com/premium-vector/online-delivery-service-concept-vector-illustration-with-delivery-courier-character_675567-2568.jpg"),
       ),
-      Text("Quick Delivery at Your Location ...", style: onboardtextstyle)
+      const Text("Quick Delivery at Your Location ...",
+          style: onboardheadertextstyle)
     ],
   )
 ];
@@ -46,6 +48,9 @@ final List<Widget> _pages = [
 class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    double w = size.width;
+    double h = size.height;
     return Scaffold(
       body: Column(
         children: [
@@ -60,7 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           DotsIndicator(
@@ -72,9 +77,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               activeShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0)),
             ),
-          ),
-          SizedBox(
-            height: 20,
           ),
         ],
       ),

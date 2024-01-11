@@ -19,18 +19,12 @@ class UserServices {
 
   // get user data by user id
   Future<UserModel?> getUserById(String id) async {
-    try {
-      DocumentSnapshot doc =
-          await _firestore.collection(collection).doc(id).get();
-
-      if (doc.exists) {
-        return UserModel.fromSnapshot(doc);
-      } else {
+    // DocumentSnapshot doc =
+    await _firestore.collection(collection).doc(id).get().then((doc) {
+      if (doc.data() == null) {
         return null;
       }
-    } catch (e) {
-      print('Error fetching user data: $e');
-      return null;
-    }
+      return UserModel.fromSnapshot(doc);
+    });
   }
 }

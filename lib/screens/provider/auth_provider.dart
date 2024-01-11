@@ -5,8 +5,8 @@ import 'package:fuel_it/screens/services/user_services.dart';
 
 class AuthProvider with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  late String smsOtp;
   String error = '';
+  late String smsOtp;
   late String verificationId;
   UserServices _userServices = UserServices();
 

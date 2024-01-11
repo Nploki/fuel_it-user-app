@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fuel_it/firebase_options.dart';
 import 'package:fuel_it/screens/HomeScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,16 +13,9 @@ import 'package:fuel_it/screens/provider/auth_provider.dart'
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Platform.isAndroid
-  //     ? await Firebase.initializeApp(
-  //         options: FirebaseOptions(
-  //             apiKey: "AIzaSyBnJoh304Bw4XptTM2bJwSiwkIsRJqzJRw",
-  //             appId: "1:992121400844:android:442a2d1462fd289f2b0829",
-  //             messagingSenderId: "992121400844",
-  //             projectId: "fuel-it-e0ce6"))
-  //     :
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     MultiProvider(
@@ -102,8 +96,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    Colors.yellow, // Change to your preferred color
+                backgroundColor: Colors.yellow,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 shape: RoundedRectangleBorder(

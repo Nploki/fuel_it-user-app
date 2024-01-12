@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fuel_it/screens/HomeScreen.dart';
-import 'package:fuel_it/screens/services/user_services.dart';
+import 'package:fuel_it/services/user_services.dart';
 
 class AuthProvider with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -89,11 +89,7 @@ class AuthProvider with ChangeNotifier {
                     //create new user
                     _createUser(id: user.uid, number: user.phoneNumber ?? '');
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
-                    );
+                    Navigator.pushReplacementNamed(context, HomeScreen.id);
                   } else {
                     print("Login Failed");
                   }
@@ -103,7 +99,10 @@ class AuthProvider with ChangeNotifier {
                   Navigator.of(context).pop();
                 }
               },
-              child: Text("DONE"),
+              child: Text(
+                "DONE",
+                style: TextStyle(color: Colors.amber.shade700),
+              ),
             ),
           ],
         );

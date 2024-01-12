@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fuel_it/screens/welcome_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  static const id = 'home-screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: Text('Sign-Out'),
-    ));
+            child: ElevatedButton(
+      child: Text("Sign-Out"),
+      onPressed: () {
+        FirebaseAuth.instance.signOut().then(
+          (value) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => welcome_screen(),
+              ),
+            );
+          },
+        );
+      },
+    )));
   }
 }

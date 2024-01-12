@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "890542910470",
-    "project_id": "fuelitdelivery",
-    "storage_bucket": "fuelitdelivery.appspot.com"
+    "project_number": "853641221533",
+    "project_id": "fuel-it-user-app",
+    "storage_bucket": "fuel-it-user-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:890542910470:android:eac558973d8e573f98a787",
+        "mobilesdk_app_id": "1:853641221533:android:c05dc1a83ec30bddeacb74",
         "android_client_info": {
           "package_name": "com.example.fuel_it"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBhTF-nwAcLICCDdd3vNSQzlbOe7hMnzic"
+          "current_key": "AIzaSyDyYoCI54ndWnNlq2RYEjjzhM8T2RVU2Fk"
         }
       ],
       "services": {

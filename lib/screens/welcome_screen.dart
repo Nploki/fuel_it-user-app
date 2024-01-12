@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:fuel_it/screens/provider/auth_provider.dart';
+import 'package:fuel_it/provider/auth_provider.dart';
+import 'package:fuel_it/screens/map_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:fuel_it/screens/onboarding_screen.dart';
 
 class welcome_screen extends StatelessWidget {
+  static const id = 'welcome-screen';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,6 +31,18 @@ class welcome_screen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Visibility(
+                      visible: auth.error == 'Invalid OTP' ? true : false,
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Text(auth.error),
+                            SizedBox(
+                              height: 3,
+                            )
+                          ],
+                        ),
+                      )),
                   const SizedBox(
                     height: 10,
                   ),
@@ -44,37 +60,34 @@ class welcome_screen extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Form(
-                    // key: _formKey,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        prefixText: "+91  ",
-                        labelText: '10 Digit Mobile Number',
-                        suffixIcon: _validphonenumber
-                            ? const Icon(Icons.check_circle_outlined,
-                                color: Colors.green)
-                            : const Icon(Icons.close, color: Colors.red),
-                      ),
-                      autofocus: false,
-                      maxLength: 10,
-                      controller: _phoneNumberController,
-                      keyboardType: TextInputType.phone,
-                      validator: (value) {
-                        if (value!.length != 10) return "Invalid Phone Number ";
-                        return null;
-                      },
-                      onChanged: (value) {
-                        if (value.length == 10) {
-                          mystate(() {
-                            _validphonenumber = true;
-                          });
-                        } else {
-                          mystate(() {
-                            _validphonenumber = false;
-                          });
-                        }
-                      },
+                  TextFormField(
+                    decoration: InputDecoration(
+                      prefixText: "+91  ",
+                      labelText: '10 Digit Mobile Number',
+                      suffixIcon: _validphonenumber
+                          ? const Icon(Icons.check_circle_outlined,
+                              color: Colors.green)
+                          : const Icon(Icons.close, color: Colors.red),
                     ),
+                    autofocus: false,
+                    maxLength: 10,
+                    controller: _phoneNumberController,
+                    keyboardType: TextInputType.phone,
+                    validator: (value) {
+                      if (value!.length != 10) return "Invalid Phone Number ";
+                      return null;
+                    },
+                    onChanged: (value) {
+                      if (value.length == 10) {
+                        mystate(() {
+                          _validphonenumber = true;
+                        });
+                      } else {
+                        mystate(() {
+                          _validphonenumber = false;
+                        });
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 50,
@@ -86,85 +99,16 @@ class welcome_screen extends StatelessWidget {
                           absorbing: _validphonenumber ? false : true,
                           child: OutlinedButton(
                             onPressed: () {
-                              //   if (_formKey.currentState!.validate()) {
-                              //     auth_service.sendOtp(
-                              //         phone: _phoneController.text,
-                              //         errorStep: () =>
-                              //             ScaffoldMessenger.of(context)
-                              //                 .showSnackBar(SnackBar(
-                              //               content: Text(
-                              //                 "Error in Sending OTP",
-                              //                 style: TextStyle(
-                              //                   color: Colors.white,
-                              //                 ),
-                              //               ),
-                              //               backgroundColor: Colors.red,
-                              //             )),
-                              //         nextStep: () {
-                              //           showDialog(
-                              //               context: context,
-                              //               builder: (context) => AlertDialog(
-                              //                     title: Text("OTP Verification"),
-                              //                     content: Column(children: [
-                              //                       Text("Enter 6 Digit OTP."),
-                              //                       SizedBox(
-                              //                         height: 12,
-                              //                       ),
-                              //                       Form(
-                              //                         key: _formKey1,
-                              //                         child: TextFormField(
-                              //                           decoration:
-                              //                               InputDecoration(
-                              //                             labelText:
-                              //                                 '10 Digit Mobile Number',
-                              //                             suffixIcon: _validphonenumber
-                              //                                 ? const Icon(
-                              //                                     Icons
-                              //                                         .check_circle_outlined,
-                              //                                     color: Colors
-                              //                                         .green)
-                              //                                 : const Icon(
-                              //                                     Icons.close,
-                              //                                     color:
-                              //                                         Colors.red),
-                              //                           ),
-                              //                           autofocus: false,
-                              //                           controller:
-                              //                               _otpController,
-                              //                           keyboardType:
-                              //                               TextInputType.phone,
-                              //                           validator: (value) {
-                              //                             if (value!.length != 6)
-                              //                               return "Invalid OTP ";
-                              //                             return null;
-                              //                           },
-                              //                           onChanged: (value) {
-                              //                             if (value.length == 6) {
-                              //                               mystate(() {
-                              //                                 _validphonenumber =
-                              //                                     true;
-                              //                               });
-                              //                             } else {
-                              //                               mystate(() {
-                              //                                 _validphonenumber =
-                              //                                     false;
-                              //                               });
-                              //                             }
-                              //                           },
-                              //                         ),
-                              //                       ),
-                              //                     ]),
-                              //                   ));
-                              //         });
-                              //   }
                               String number =
                                   '+91${_phoneNumberController.text}';
-                              auth.verifyPhone(context, number);
+                              auth
+                                  .verifyPhone(context, number)
+                                  .then((value) => null);
                             },
                             style: OutlinedButton.styleFrom(
                               backgroundColor: _validphonenumber
-                                  ? const Color.fromARGB(255, 255, 200, 0)
-                                  : const Color.fromARGB(255, 6, 78, 173),
+                                  ? Color.fromARGB(255, 10, 172, 53)
+                                  : Color.fromARGB(255, 158, 3, 29),
                               padding: EdgeInsets.symmetric(vertical: 15),
                             ),
                             child: Text(
@@ -228,7 +172,15 @@ class welcome_screen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                // if (locationData.permissionAllowed) {
+                //   locationData.getCurrentPosition().then((value) {
+                //     Navigator.pushReplacementNamed(context, MapScreen.id);
+                //   });
+                // } else {
+                //   print("Permission Not Allowed");
+                // }
+              },
               child: const Text(
                 "Set Your Loction !",
                 style: TextStyle(color: Color.fromARGB(255, 108, 240, 167)),

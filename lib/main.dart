@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fuel_it/firebase_options.dart';
 import 'package:fuel_it/provider/location_provider.dart';
 import 'package:fuel_it/screens/HomeScreen.dart';
-import 'package:fuel_it/screens/map.dart';
 import 'package:fuel_it/screens/map_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:fuel_it/screens/welcome_screen.dart';
@@ -37,13 +36,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.teal.shade900,
         ),
-        initialRoute: map.id,
+        initialRoute: MapScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
           HomeScreen.id: (context) => HomeScreen(),
           welcome_screen.id: (context) => welcome_screen(),
           MapScreen.id: (context) => MapScreen(),
-          map.id: (context) => map(),
         });
   }
 }

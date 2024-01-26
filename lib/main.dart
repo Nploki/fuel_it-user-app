@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fuel_it/firebase_options.dart';
+import 'package:fuel_it/provider/location_provider.dart';
 import 'package:fuel_it/screens/HomeScreen.dart';
+import 'package:fuel_it/screens/map.dart';
 import 'package:fuel_it/screens/map_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fuel_it/screens/onboarding_screen.dart';
 import 'package:fuel_it/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fuel_it/provider/auth_provider.dart' as MyAppAuthProvider;
@@ -20,7 +20,8 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => MyAppAuthProvider.AuthProvider())
+        ChangeNotifierProvider(create: (_) => MyAppAuthProvider.AuthProvider()),
+        ChangeNotifierProvider(create: (_) => LocationProvider()),
       ],
       child: MyApp(),
     ),
@@ -36,12 +37,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.teal.shade900,
         ),
-        initialRoute: SplashScreen.id,
+        initialRoute: map.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
           HomeScreen.id: (context) => HomeScreen(),
           welcome_screen.id: (context) => welcome_screen(),
-          // MapScreen.id : (context)=>MapScreen(),
+          MapScreen.id: (context) => MapScreen(),
+          map.id: (context) => map(),
         });
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:fuel_it/provider/auth_provider.dart';
+import 'package:fuel_it/provider/location_provider.dart';
 import 'package:fuel_it/screens/map_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -134,6 +134,8 @@ class welcome_screen extends StatelessWidget {
       );
     }
 
+    final locationData = Provider.of<LocationProvider>(context, listen: false);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -151,10 +153,6 @@ class welcome_screen extends StatelessWidget {
           ),
           Column(children: [
             Expanded(child: OnboardingScreen()),
-            const Text("Ready to Order from your near by Petrol Bump"),
-            const SizedBox(
-              height: 20,
-            ),
             const Text(
               "Ready To Order Form Nearest Petrol Bunk",
               style: TextStyle(fontSize: 17),
@@ -172,14 +170,13 @@ class welcome_screen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
-              onPressed: () {
-                // if (locationData.permissionAllowed) {
-                //   locationData.getCurrentPosition().then((value) {
-                //     Navigator.pushReplacementNamed(context, MapScreen.id);
-                //   });
-                // } else {
-                //   print("Permission Not Allowed");
-                // }
+              onPressed: () async {
+                await locationData.getCurrentPosition();
+                if (locationData.permissionAllowed == true) {
+                  Navigator.pushReplacementNamed(context, MapScreen.id);
+                } else {
+                  print('Permission Not Allowed');
+                }
               },
               child: const Text(
                 "Set Your Loction !",

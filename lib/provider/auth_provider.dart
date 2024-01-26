@@ -45,6 +45,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> smsOtpDialog(BuildContext context, String number) async {
     return showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -80,28 +81,41 @@ class AuthProvider with ChangeNotifier {
                     smsCode: smsOtp,
                   );
 
-                  final UserCredential? userCredential =
+                  final UserCredential userCredential =
                       await _auth.signInWithCredential(credential);
 
-                  final User? user = userCredential?.user;
+                  final User? user = userCredential.user;
 
                   if (user != null) {
                     //create new user
                     _createUser(id: user.uid, number: user.phoneNumber ?? '');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('OTP Verified Successfully'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
                     Navigator.of(context).pop();
                     Navigator.pushReplacementNamed(context, HomeScreen.id);
                   } else {
                     print("Login Failed");
                   }
                 } catch (e) {
-                  this.error = 'Invalid OTP';
-                  print('Error during OTP verification: $e');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Invalid OTP'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                   Navigator.of(context).pop();
                 }
               },
-              child: Text(
-                "DONE",
-                style: TextStyle(color: Colors.amber.shade700),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  "DONE",
+                  style: TextStyle(color: Colors.amber.shade700),
+                ),
               ),
             ),
           ],

@@ -11,4 +11,4 @@ const onboardfootertextstyle = TextStyle(
     fontWeight: FontWeight.w400,
     color: Color.fromARGB(255, 151, 169, 173));
 
-const apikey = "AIzaSyD6xGGu_-rCJTTVzxR58zCDIO_jA91SMCE";
+const apikey = "AIzaSyAFJvcQ7jd-rNv0vgy6e0GV3XogZzUDDbQ";

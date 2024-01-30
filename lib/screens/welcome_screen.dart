@@ -6,11 +6,19 @@ import 'package:fuel_it/screens/map_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:fuel_it/screens/onboarding_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class welcome_screen extends StatelessWidget {
+class welcome_screen extends StatefulWidget {
   static const id = 'welcome-screen';
+
+  @override
+  State<welcome_screen> createState() => _welcome_screenState();
+}
+
+class _welcome_screenState extends State<welcome_screen> {
   @override
   Widget build(BuildContext context) {
+    checkPermission(Permission.location);
     Size size = MediaQuery.of(context).size;
     double w = size.width;
     double h = size.height;
@@ -153,10 +161,6 @@ class welcome_screen extends StatelessWidget {
           ),
           Column(children: [
             Expanded(child: OnboardingScreen()),
-            const Text(
-              "Ready To Order Form Nearest Petrol Bunk",
-              style: TextStyle(fontSize: 17),
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -170,42 +174,48 @@ class welcome_screen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
-              onPressed: () async {
-                await locationData.getCurrentPosition();
-                if (locationData.permissionAllowed == true) {
-                  Navigator.pushReplacementNamed(context, MapScreen.id);
-                } else {
-                  print('Permission Not Allowed');
-                }
+              onPressed: () {
+                setState(() {
+                  auth.screeen = 'login';
+                });
+                showBottomSheet(
+                  context,
+                );
+                // onPressed: () async {
+                //   await locationData.getCurrentPosition();
+                //   if (locationData.permissionAllowed == true) {
+                //     Navigator.pushReplacementNamed(context, MapScreen.id);
+                //   } else {
+                //     print('Permission Not Allowed');
               },
               child: const Text(
-                "Set Your Loction !",
+                "Proceed to Login",
                 style: TextStyle(color: Color.fromARGB(255, 108, 240, 167)),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            TextButton(
-              onPressed: () {
-                showBottomSheet(
-                  context,
-                );
-              },
-              child: RichText(
-                text: const TextSpan(
-                    text: "Existing User ? ",
-                    style:
-                        TextStyle(fontFamily: 'NotoSans', color: Colors.black),
-                    children: [
-                      TextSpan(
-                        text: "Login",
-                        style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
-                      )
-                    ]),
-              ),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     showBottomSheet(
+            //       context,
+            //     );
+            //   },
+            //   child: RichText(
+            //     text: const TextSpan(
+            //         text: "Existing User ? ",
+            //         style:
+            //             TextStyle(fontFamily: 'NotoSans', color: Colors.black),
+            //         children: [
+            //           TextSpan(
+            //             text: "Login",
+            //             style: TextStyle(
+            //                 color: Colors.blue, fontWeight: FontWeight.bold),
+            //           )
+            //         ]),
+            //   ),
+            // ),
             const SizedBox(
               height: 15,
             ),
@@ -213,5 +223,12 @@ class welcome_screen extends StatelessWidget {
         ]),
       ),
     );
+  }
+}
+
+Future<void> checkPermission(Permission permission) async {
+  final status = await permission.request();
+  if (!status.isGranted) {
+    await permission.request();
   }
 }

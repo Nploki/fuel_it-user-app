@@ -1,15 +1,14 @@
-// location_provider.dart
-
 import 'package:flutter/cupertino.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationProvider extends ChangeNotifier {
   double latitude = 0.0;
   double longitude = 0.0;
-  Address? selectedAddress;
+  String? selectedAddress;
   bool permissionAllowed = false;
+  bool locating = false;
 
   Future<Position> getCurrentPosition() async {
     bool serviceEnabled;
@@ -32,6 +31,7 @@ class LocationProvider extends ChangeNotifier {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
+    permissionAllowed = true;
     return await Geolocator.getCurrentPosition();
   }
 
@@ -42,10 +42,12 @@ class LocationProvider extends ChangeNotifier {
   }
 
   Future<void> getMoveCamera() async {
-    final coordinates = Coordinates(this.latitude, this.longitude);
-    final addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    this.selectedAddress = addresses.first;
-    print("${selectedAddress!.featureName} : ${selectedAddress!.addressLine}");
+    final List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
+    final Placemark place = placemarks.first;
+    selectedAddress =
+        "${place.name}, ${place.locality} \n${place.administrativeArea} ${place.postalCode}, ${place.country}";
+    //  ${place.thoroughfare}, ${place.subLocality}
+    print(selectedAddress);
   }
 }

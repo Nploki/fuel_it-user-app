@@ -18,13 +18,16 @@ class UserServices {
   }
 
   // get user data by user id
-  Future<UserModel?> getUserById(String id) async {
+  Future<DocumentSnapshot> getUserById(String id) async {
     // DocumentSnapshot doc =
-    await _firestore.collection(collection).doc(id).get().then((doc) {
-      if (doc.data() == null) {
-        return null;
-      }
-      return UserModel.fromSnapshot(doc);
-    });
+    // await _firestore.collection(collection).doc(id).get().then((doc) {
+    //   if (doc.data() == null) {
+    //     return null;
+    //   }
+    //   return UserModel.fromSnapshot(doc);
+    // });
+
+    var result = await _firestore.collection(collection).doc(id).get();
+    return result;
   }
 }

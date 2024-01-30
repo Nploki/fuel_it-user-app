@@ -23,7 +23,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -47,28 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAqMocSxzpa3uiwglx1qGCSGJmNobWkTMM',
-    appId: '1:853641221533:web:2a3f1bc63368b9e8eacb74',
-    messagingSenderId: '853641221533',
-    projectId: 'fuel-it-user-app',
-    authDomain: 'fuel-it-user-app.firebaseapp.com',
-    storageBucket: 'fuel-it-user-app.appspot.com',
+    apiKey: 'AIzaSyBA5ahUbw2eYGQJPWAlqr8W5h2mAK5zDd4',
+    appId: '1:217803086791:web:af0c8fbe1f255b3410d7e2',
+    messagingSenderId: '217803086791',
+    projectId: 'map-np',
+    authDomain: 'map-np.firebaseapp.com',
+    storageBucket: 'map-np.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDyYoCI54ndWnNlq2RYEjjzhM8T2RVU2Fk',
-    appId: '1:853641221533:android:c05dc1a83ec30bddeacb74',
-    messagingSenderId: '853641221533',
-    projectId: 'fuel-it-user-app',
-    storageBucket: 'fuel-it-user-app.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC6VhCc72eK7AGmmznMNA70H6DGo_txe5I',
-    appId: '1:853641221533:ios:6e78dd31383cbf74eacb74',
-    messagingSenderId: '853641221533',
-    projectId: 'fuel-it-user-app',
-    storageBucket: 'fuel-it-user-app.appspot.com',
-    iosBundleId: 'com.example.fuelIt',
+    apiKey: 'AIzaSyBHp-mAdw8caXQji8vMr_Op9hqtAubNui4',
+    appId: '1:217803086791:android:f40f2c25771071ff10d7e2',
+    messagingSenderId: '217803086791',
+    projectId: 'map-np',
+    storageBucket: 'map-np.appspot.com',
   );
 }

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "853641221533",
-    "project_id": "fuel-it-user-app",
-    "storage_bucket": "fuel-it-user-app.appspot.com"
+    "project_number": "217803086791",
+    "project_id": "map-np",
+    "storage_bucket": "map-np.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:853641221533:android:c05dc1a83ec30bddeacb74",
+        "mobilesdk_app_id": "1:217803086791:android:f40f2c25771071ff10d7e2",
         "android_client_info": {
           "package_name": "com.example.fuel_it"
         }
@@ -15,7 +15,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDyYoCI54ndWnNlq2RYEjjzhM8T2RVU2Fk"
+          "current_key": "AIzaSyBHp-mAdw8caXQji8vMr_Op9hqtAubNui4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217803086791:android:6bb3e9039c32ef2910d7e2",
+        "android_client_info": {
+          "package_name": "com.example.map"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHp-mAdw8caXQji8vMr_Op9hqtAubNui4"
         }
       ],
       "services": {

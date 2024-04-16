@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fuel_it/screens/main_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fuel_it/screens/HomeScreen.dart';
-import 'package:fuel_it/screens/onboarding_screen.dart';
 import 'package:fuel_it/screens/welcome_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,13 +16,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 2), () {
       // Navigator.pushReplacementNamed(context, welcome_screen.id);
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         if (user == null) {
           Navigator.pushReplacementNamed(context, welcome_screen.id);
         } else {
-          Navigator.pushReplacementNamed(context, HomeScreen.id);
+          Navigator.pushReplacementNamed(context, MainScreen.id);
         }
       });
     });
@@ -39,10 +38,10 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         child: Column(children: [
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
-          Image(
+          const Image(
             image: NetworkImage(
                 "https://cdni.iconscout.com/illustration/premium/thumb/fuel-payment-using-mobile-phone-7365838-6027095.png?f=webp"),
             width: 500,
@@ -53,30 +52,20 @@ class _SplashScreenState extends State<SplashScreen> {
             textAlign: TextAlign.center,
             style: GoogleFonts.quantico(fontSize: 17),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => OnboardingScreen(),
-          //         ),
-          //       );
-          //     },
-          //     child: Text(" Get-In ")),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Text("FUEL-IT",
               style: GoogleFonts.viga(
                 letterSpacing: 5,
                 fontSize: 50,
-                color: Color.fromARGB(255, 0, 58, 50),
+                color: const Color.fromARGB(255, 0, 58, 50),
                 shadows: [
                   BoxShadow(
-                    color: Color.fromARGB(255, 55, 233, 150)
+                    color: const Color.fromARGB(255, 55, 233, 150)
                         .withOpacity(1), // Matching color
                     blurRadius: 5,
                     spreadRadius: 5,

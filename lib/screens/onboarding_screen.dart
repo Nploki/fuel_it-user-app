@@ -39,7 +39,7 @@ final List<Widget> _pages = [
         child: Image.network(
             "https://img.freepik.com/premium-vector/online-delivery-service-concept-vector-illustration-with-delivery-courier-character_675567-2568.jpg"),
       ),
-      const Text("Quick Delivery at Your Location ...",
+      const Text("Quick Delivery at Your Door Step ...",
           style: onboardheadertextstyle)
     ],
   )

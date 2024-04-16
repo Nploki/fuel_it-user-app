@@ -1,10 +1,6 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fuel_it/provider/auth_provider.dart';
-import 'package:fuel_it/provider/location_provider.dart';
-import 'package:fuel_it/screens/map_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:fuel_it/screens/onboarding_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -23,29 +19,30 @@ class _welcome_screenState extends State<welcome_screen> {
     double w = size.width;
     double h = size.height;
 
-    final auth = Provider.of<AuthProvider>(context);
+    // final auth = Provider.of<AuthProvider>(context);
+    AuthProvider auth = AuthProvider();
 
-    bool _validphonenumber = false;
-    var _phoneNumberController = TextEditingController();
+    bool validphonenumber = false;
+    var phoneNumberController = TextEditingController();
 
     void showBottomSheet(context) {
       showModalBottomSheet(
         context: context,
         builder: (context) =>
             StatefulBuilder(builder: (context, StateSetter mystate) {
-          return Container(
+          return SizedBox(
             child: Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Visibility(
                       visible: auth.error == 'Invalid OTP' ? true : false,
-                      child: Container(
+                      child: SizedBox(
                         child: Column(
                           children: [
                             Text(auth.error),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             )
                           ],
@@ -72,14 +69,14 @@ class _welcome_screenState extends State<welcome_screen> {
                     decoration: InputDecoration(
                       prefixText: "+91  ",
                       labelText: '10 Digit Mobile Number',
-                      suffixIcon: _validphonenumber
+                      suffixIcon: validphonenumber
                           ? const Icon(Icons.check_circle_outlined,
                               color: Colors.green)
                           : const Icon(Icons.close, color: Colors.red),
                     ),
                     autofocus: false,
                     maxLength: 10,
-                    controller: _phoneNumberController,
+                    controller: phoneNumberController,
                     keyboardType: TextInputType.phone,
                     validator: (value) {
                       if (value!.length != 10) return "Invalid Phone Number ";
@@ -88,11 +85,11 @@ class _welcome_screenState extends State<welcome_screen> {
                     onChanged: (value) {
                       if (value.length == 10) {
                         mystate(() {
-                          _validphonenumber = true;
+                          validphonenumber = true;
                         });
                       } else {
                         mystate(() {
-                          _validphonenumber = false;
+                          validphonenumber = false;
                         });
                       }
                     },
@@ -104,23 +101,23 @@ class _welcome_screenState extends State<welcome_screen> {
                     children: [
                       Expanded(
                         child: AbsorbPointer(
-                          absorbing: _validphonenumber ? false : true,
+                          absorbing: validphonenumber ? false : true,
                           child: OutlinedButton(
                             onPressed: () {
                               String number =
-                                  '+91${_phoneNumberController.text}';
+                                  '+91${phoneNumberController.text}';
                               auth
                                   .verifyPhone(context, number)
                                   .then((value) => null);
                             },
                             style: OutlinedButton.styleFrom(
-                              backgroundColor: _validphonenumber
-                                  ? Color.fromARGB(255, 10, 172, 53)
-                                  : Color.fromARGB(255, 158, 3, 29),
-                              padding: EdgeInsets.symmetric(vertical: 15),
+                              backgroundColor: validphonenumber
+                                  ? const Color.fromARGB(255, 10, 172, 53)
+                                  : const Color.fromARGB(255, 158, 3, 29),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                             ),
                             child: Text(
-                              _validphonenumber
+                              validphonenumber
                                   ? 'CONTINUE'
                                   : 'Enter Mobile Number ',
                               style: const TextStyle(
@@ -142,8 +139,6 @@ class _welcome_screenState extends State<welcome_screen> {
       );
     }
 
-    final locationData = Provider.of<LocationProvider>(context, listen: false);
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -152,7 +147,7 @@ class _welcome_screenState extends State<welcome_screen> {
             right: 0.0,
             top: 10.0,
             child: ElevatedButton(
-              child: Text(
+              child: const Text(
                 'SKIP',
                 style: TextStyle(color: Colors.lightBlue),
               ),
@@ -168,8 +163,9 @@ class _welcome_screenState extends State<welcome_screen> {
               style: OutlinedButton.styleFrom(
                 padding: EdgeInsets.symmetric(
                     horizontal: w * 0.15, vertical: h * 0.02),
-                side: BorderSide(color: Color.fromARGB(255, 223, 203, 197)),
-                backgroundColor: Color.fromARGB(255, 6, 80, 102),
+                side:
+                    const BorderSide(color: Color.fromARGB(255, 223, 203, 197)),
+                backgroundColor: const Color.fromARGB(255, 6, 80, 102),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
@@ -181,12 +177,6 @@ class _welcome_screenState extends State<welcome_screen> {
                 showBottomSheet(
                   context,
                 );
-                // onPressed: () async {
-                //   await locationData.getCurrentPosition();
-                //   if (locationData.permissionAllowed == true) {
-                //     Navigator.pushReplacementNamed(context, MapScreen.id);
-                //   } else {
-                //     print('Permission Not Allowed');
               },
               child: const Text(
                 "Proceed to Login",
@@ -196,26 +186,6 @@ class _welcome_screenState extends State<welcome_screen> {
             const SizedBox(
               height: 10,
             ),
-            // TextButton(
-            //   onPressed: () {
-            //     showBottomSheet(
-            //       context,
-            //     );
-            //   },
-            //   child: RichText(
-            //     text: const TextSpan(
-            //         text: "Existing User ? ",
-            //         style:
-            //             TextStyle(fontFamily: 'NotoSans', color: Colors.black),
-            //         children: [
-            //           TextSpan(
-            //             text: "Login",
-            //             style: TextStyle(
-            //                 color: Colors.blue, fontWeight: FontWeight.bold),
-            //           )
-            //         ]),
-            //   ),
-            // ),
             const SizedBox(
               height: 15,
             ),

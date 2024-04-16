@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fuel_it/models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserServices {
   String collection = 'users';
@@ -19,15 +19,17 @@ class UserServices {
 
   // get user data by user id
   Future<DocumentSnapshot> getUserById(String id) async {
-    // DocumentSnapshot doc =
-    // await _firestore.collection(collection).doc(id).get().then((doc) {
-    //   if (doc.data() == null) {
-    //     return null;
-    //   }
-    //   return UserModel.fromSnapshot(doc);
-    // });
-
     var result = await _firestore.collection(collection).doc(id).get();
     return result;
+  }
+
+  String userId() {
+    final auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    if (user != null) {
+      return user.uid;
+    } else {
+      return "No User Signed In";
+    }
   }
 }

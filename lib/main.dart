@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:fuel_it/firebase_options.dart';
 import 'package:fuel_it/provider/location_provider.dart';
 import 'package:fuel_it/screens/HomeScreen.dart';
+import 'package:fuel_it/screens/cart_screen.dart';
 import 'package:fuel_it/screens/location_bunk.dart';
+import 'package:fuel_it/screens/main_screen.dart';
 import 'package:fuel_it/screens/map_screen.dart';
+import 'package:fuel_it/screens/orderPage/my_orders.dart';
+import 'package:fuel_it/screens/orderPage/order_history.dart';
+import 'package:fuel_it/screens/vendor_home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:fuel_it/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fuel_it/provider/store_provider.dart';
 import 'package:fuel_it/provider/auth_provider.dart' as MyAppAuthProvider;
 
 import 'screens/splash_screen.dart';
@@ -20,6 +26,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => storeProvider()),
         ChangeNotifierProvider(create: (_) => MyAppAuthProvider.AuthProvider()),
         ChangeNotifierProvider(create: (_) => LocationProvider()),
       ],
@@ -46,6 +53,11 @@ class MyApp extends StatelessWidget {
           welcome_screen.id: (context) => welcome_screen(),
           MapScreen.id: (context) => MapScreen(),
           locate_bunk.id: (context) => locate_bunk(),
+          completed_orders.id: (context) => completed_orders(),
+          my_orders.id: (context) => my_orders(),
+          MainScreen.id: (context) => MainScreen(),
+          CartPage.id: (context) => CartPage(),
+          vendorHomeScreen.id: (context) => vendorHomeScreen()
         });
   }
 }

@@ -12,3 +12,5 @@ const onboardfootertextstyle = TextStyle(
     color: Color.fromARGB(255, 151, 169, 173));
 
 const apikey = "AIzaSyAFJvcQ7jd-rNv0vgy6e0GV3XogZzUDDbQ";
+
+const storeCardStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.bold);

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fuel_it/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,17 +10,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fuel_it/provider/location_provider.dart';
 import 'package:fuel_it/provider/auth_provider.dart' as AuthProvider;
-import 'package:fuel_it/screens/HomeScreen.dart';
 
 class MapScreen extends StatefulWidget {
-  static String id = 'map-screen';
+  static const id = 'mapscreen';
 
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
-  LatLng currentLocation = LatLng(9.9, 9);
+  LatLng currentLocation = const LatLng(9.9252, 78.1198);
   late GoogleMapController _mapController;
   bool loggedIn = false;
   late User user;
@@ -69,7 +70,12 @@ class _MapScreenState extends State<MapScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('SET DELIVERY ADDRESS'),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, MainScreen.id);
+            },
+            icon: const Icon(CupertinoIcons.back)),
+        title: const Text('SET DELIVERY ADDRESS'),
       ),
       body: SafeArea(
         child: Stack(
@@ -82,14 +88,14 @@ class _MapScreenState extends State<MapScreen> {
                   zoom: 14.0,
                 ),
                 zoomControlsEnabled: true,
-                minMaxZoomPreference: MinMaxZoomPreference(1.5, 25),
+                minMaxZoomPreference: const MinMaxZoomPreference(1.5, 25),
                 myLocationEnabled: true,
                 myLocationButtonEnabled: true,
                 mapType: MapType.normal,
                 mapToolbarEnabled: true,
                 markers: {
                   Marker(
-                    markerId: MarkerId('currentLocation'),
+                    markerId: const MarkerId('currentLocation'),
                     position: currentLocation,
                     icon: BitmapDescriptor.defaultMarkerWithHue(
                         BitmapDescriptor.hueBlue),
@@ -110,7 +116,7 @@ class _MapScreenState extends State<MapScreen> {
                 color: Color.fromARGB(255, 49, 36, 227),
               ),
             ),
-            Center(
+            const Center(
               child: SpinKitRipple(
                 color: Colors.blue,
                 size: 100,
@@ -122,9 +128,9 @@ class _MapScreenState extends State<MapScreen> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.30,
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(210, 144, 237, 245),
+                  color: const Color.fromARGB(210, 144, 237, 245),
                   borderRadius: BorderRadius.circular(8.0),
                   boxShadow: const [
                     BoxShadow(
@@ -165,7 +171,7 @@ class _MapScreenState extends State<MapScreen> {
                           "Location",
                           style: GoogleFonts.chakraPetch(
                             fontSize: 30,
-                            color: Color.fromARGB(255, 119, 4, 148),
+                            color: const Color.fromARGB(255, 119, 4, 148),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -191,7 +197,8 @@ class _MapScreenState extends State<MapScreen> {
                       width: 250,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 255, 230, 0)),
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 230, 0)),
                         onPressed: () async {
                           auth.latitude = locationData.latitude;
                           auth.longitude = locationData.longitude;
@@ -210,7 +217,7 @@ class _MapScreenState extends State<MapScreen> {
                           auth.savepref();
                           Navigator.pop(context); // Pop the current route
                           Navigator.pushNamed(context,
-                              HomeScreen.id); // Push the HomeScreen route
+                              MainScreen.id); // Push the HomeScreen route
                         },
                         child: const Text(
                           "Confirm Address",
